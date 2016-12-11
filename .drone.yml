@@ -1,17 +1,23 @@
 build:
-  image: qnib/golang
-  commands:
-    - go get -d
-    - go get github.com/stretchr/testify/assert
-    - go build
-    - go test -coverprofile=main.out
-    - go test -coverprofile=lib.out ./lib/
-    - coveraggregator -o all.out main.out lib.out
-    - go tool cover -func=all.out |tee ./coverage.out
+  test:
+    image: qnib/golang
+    commands:
+      - go get -d
+      - go get github.com/stretchr/testify/assert
+      - go test -coverprofile=main.out
+      - go test -coverprofile=lib.out ./lib/
+      - coveraggregator -o all.out main.out lib.out
+      - go tool cover -func=all.out |tee ./coverage.out
+  build:
+    image: qnib/golang
+    commands:
+      - go get -d
+      - go get github.com/stretchr/testify/assert
+      - go build
 
 publish:
   coverage:
-    server: http://wins.ddns.net:8008/
+    #server: http://wins.ddns.net:8008/
     token: $$GITHUB_API_KEY
     include: .+\\.coverage.out$
   docker:
