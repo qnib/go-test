@@ -1,5 +1,5 @@
 build:
-  image: golang
+  image: qnib/golang
   commands:
     - go get
     - go build
