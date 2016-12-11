@@ -3,4 +3,18 @@ build:
   commands:
     - go get
     - go build
-    - go test
+    - go test -coverprofile=main.out
+    - go test -coverprofile=lib.out ./lib/
+    - coveraggregator -o all.out main.out lib.out
+    - go tool cover -func=all.out |tee ./coverage.out
+
+publish:
+  coverage:
+    server: http://wins.ddns.net:8008/
+    token: $$GITHUB_API_KEY
+    include: .+\\.coverage.out$
+  docker:
+    username: $$DOCKER_USER
+    password: $$DOCKER_PASSWORD
+    email: $$DOCKER_EMAIL
+    repo: cp2017/go-test
