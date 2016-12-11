@@ -5,8 +5,8 @@ build:
       - go get -d
       - go get github.com/stretchr/testify/assert
       - go build
-      - go test -coverprofile=main.out
-      - go test -coverprofile=lib.out ./lib/
+      - go test -cover -coverprofile=main.out
+      - go test -cover -coverprofile=lib.out ./lib/
       - coveraggregator -o all.out main.out lib.out
 
 publish:
