@@ -17,7 +17,7 @@ build:
 
 publish:
   coverage:
-    #server: http://wins.ddns.net:8008/
+    server: http://wins.ddns.net:8008
     token: $$GITHUB_API_KEY
     include: .+\\.coverage.out$
   docker:
